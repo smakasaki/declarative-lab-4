@@ -13,4 +13,4 @@ def create_annotation(dataset_path, csv_path):
                 csvwriter.writerow([abs_path, rel_path, class_name])
 
 
-create_annotation("dataset/", "dataset_annot.csv")
+create_annotation("dataset", "annotation.csv")

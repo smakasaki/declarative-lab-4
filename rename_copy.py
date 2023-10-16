@@ -18,3 +18,5 @@ def copy_and_rename(dataset_path, dest_path, annotation_path):
                 rel_path = os.path.join("new_dataset", new_file_name)
                 csvwriter.writerow([abs_path, rel_path, class_name])
 
+
+copy_and_rename("dataset", "new_dataset", "new_annotation.csv")
