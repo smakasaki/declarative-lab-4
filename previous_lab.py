@@ -11,7 +11,11 @@ def create_annotation(dataset_path, csv_path):
             class_dir = os.path.join(dataset_path, class_name)
             for file_name in os.listdir(class_dir):
                 abs_path = os.path.abspath(os.path.join(class_dir, file_name))
-                rel_path = os.path.join(dataset_path, class_name, file_name)
+
+                # Получаем относительный путь
+                full_path = os.path.join(class_dir, file_name)
+                rel_path = os.path.relpath(full_path, dataset_path)
+
                 csvwriter.writerow([abs_path, rel_path, class_name])
 
 
@@ -25,9 +29,12 @@ def copy_and_rename(dataset_path, dest_path, annotation_path):
             class_path = os.path.join(dataset_path, class_name)
             for file_name in sorted(os.listdir(class_path)):
                 new_file_name = f"{class_name}_{file_name}"
-                shutil.copy(os.path.join(class_path, file_name), os.path.join(dest_path, new_file_name))
-                abs_path = os.path.abspath(os.path.join(dest_path, new_file_name))
-                rel_path = os.path.join("new_dataset", new_file_name)
+                dest_file_path = os.path.join(dest_path, new_file_name)
+                shutil.copy(os.path.join(class_path, file_name), dest_file_path)
+
+                abs_path = os.path.abspath(dest_file_path)
+                rel_path = os.path.relpath(dest_file_path, dataset_path)
+
                 csvwriter.writerow([abs_path, rel_path, class_name])
 
 
